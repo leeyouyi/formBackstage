@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { EnumFields, EnumFormType, Itable } from "./init";
+import { EnumFields, FormTypeOptions, Itable } from "../../init";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
@@ -20,37 +20,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const FormTypeOptions = [
-  {
-    value: EnumFormType.textbox,
-    text: EnumFormType.textbox,
-  },
-  {
-    value: EnumFormType.dropdownlist,
-    text: EnumFormType.dropdownlist,
-  },
-  {
-    value: EnumFormType.radio,
-    text: EnumFormType.radio,
-  },
-  {
-    value: EnumFormType.checkbox,
-    text: EnumFormType.checkbox,
-  },
-  {
-    value: EnumFormType.calendar,
-    text: EnumFormType.calendar,
-  },
-  {
-    value: EnumFormType.textarea,
-    text: EnumFormType.textarea,
-  },
-];
-
 export const columns = (
   editId: string,
   handleEdit: (editId: string) => void,
   handleChange: (editId: string, editCol: string, value: string) => void,
+  handleSave: () => void,
   handleCancel: () => void
 ): ColumnDef<Itable>[] => {
   return [
@@ -86,6 +60,28 @@ export const columns = (
       cell: ({ row }) => {
         return (
           <div className="text-left font-medium">{row.getValue("id")}</div>
+        );
+      },
+    },
+    {
+      accessorKey: "sort",
+      header: () => <div className="text-left">排序</div>,
+      cell: ({ row }) => {
+        const item = row.original;
+        return (
+          <div className="text-left font-medium">
+            {item.id !== editId ? (
+              row.getValue("sort")
+            ) : (
+              <Input
+                className="w-[60px]"
+                value={item[EnumFields.sort]}
+                onChange={(e) =>
+                  handleChange(item.id, EnumFields.sort, e.target.value)
+                }
+              />
+            )}
+          </div>
         );
       },
     },
@@ -191,10 +187,12 @@ export const columns = (
           </DropdownMenu>
         ) : (
           <>
-            <Button className="mr-1" onClick={() => handleEdit("")}>
+            <Button size={"sm"} className="mr-1" onClick={handleSave}>
               儲存
             </Button>
-            <Button onClick={() => handleCancel()}>取消</Button>
+            <Button size={"sm"} onClick={handleCancel}>
+              取消
+            </Button>
           </>
         );
       },

@@ -13,8 +13,10 @@ export enum EnumFormType {
 // }
 
 export enum EnumFields {
-  /** 序號 */
+  /** 不可變 */
   id = "id",
+  /** 排序 */
+  sort = "sort",
   /** 欄位型別 */
   type = "type",
   /** tag name */
@@ -41,6 +43,7 @@ export interface Ioption {
 }
 export type Itable = {
   [EnumFields.id]: string;
+  [EnumFields.sort]: string;
   [EnumFields.type]: EnumFormType;
   [EnumFields.name]: string;
   [EnumFields.value]: string;
@@ -52,6 +55,7 @@ export const getData = (): Itable[] => {
   return [
     {
       id: "1",
+      sort: "1",
       type: EnumFormType.textbox,
       name: "textbox",
       value: "",
@@ -59,6 +63,7 @@ export const getData = (): Itable[] => {
     },
     {
       id: "2",
+      sort: "2",
       type: EnumFormType.dropdownlist,
       name: "dropdownlist",
       value: "",
@@ -66,6 +71,31 @@ export const getData = (): Itable[] => {
     },
     {
       id: "3",
+      sort: "3",
+      type: EnumFormType.radio,
+      name: "radio",
+      value: "",
+      text: "radio欄位",
+    },
+    {
+      id: "4",
+      sort: "4",
+      type: EnumFormType.radio,
+      name: "radio",
+      value: "",
+      text: "radio欄位",
+    },
+    {
+      id: "5",
+      sort: "5",
+      type: EnumFormType.radio,
+      name: "radio",
+      value: "",
+      text: "radio欄位",
+    },
+    {
+      id: "6",
+      sort: "6",
       type: EnumFormType.radio,
       name: "radio",
       value: "",
@@ -73,3 +103,30 @@ export const getData = (): Itable[] => {
     },
   ];
 };
+
+export const FormTypeOptions = [
+  {
+    value: EnumFormType.textbox,
+    text: EnumFormType.textbox,
+  },
+  {
+    value: EnumFormType.dropdownlist,
+    text: EnumFormType.dropdownlist,
+  },
+  {
+    value: EnumFormType.radio,
+    text: EnumFormType.radio,
+  },
+  {
+    value: EnumFormType.checkbox,
+    text: EnumFormType.checkbox,
+  },
+  {
+    value: EnumFormType.calendar,
+    text: EnumFormType.calendar,
+  },
+  {
+    value: EnumFormType.textarea,
+    text: EnumFormType.textarea,
+  },
+];
